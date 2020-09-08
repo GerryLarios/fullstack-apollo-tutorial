@@ -3,7 +3,7 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
 
   type Query {
-    Launch(id: ID!): Launch
+    launch(id: ID!): Launch
     launches: [Launch]!
     me: User
   }
