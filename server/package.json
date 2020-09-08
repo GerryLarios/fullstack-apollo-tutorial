@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-datasource": "^0.7.2",
+    "apollo-datasource-rest": "^0.9.3",
+    "apollo-server": "^2.17.0",
+    "apollo-server-testing": "^2.17.0",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.3.0",
+    "isemail": "^3.2.0",
+    "nodemon": "^2.0.4",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "apollo-link": "^1.2.14",
+    "apollo-link-http": "^1.5.17",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.4.2",
+    "nock": "^13.0.4",
+    "node-fetch": "^2.6.1"
+  }
+}
