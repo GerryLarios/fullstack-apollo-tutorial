@@ -8,9 +8,9 @@ module.exports = {
     login: async (_, { email }, { dataSources }) => {
       const user = await dataSources.userAPI.findOrCreate({ email });
       if (!user) {
-        return 'error';
+        return { success: false, token: '' };
       }
-      return Buffer.from(email).toString('base64');
+      return { success: true, token: Buffer.from(email).toString('base64') };
     },
     bookTrips: async (_, { launchIds }, { dataSources }) => {
       const results = await dataSources.userAPI.bookTrips({ launchIds });
