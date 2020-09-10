@@ -1,5 +1,21 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
+const launchReducer = (launch) => ({
+  id: launch.id || 0,
+  details: launch.details,
+  cursor: `${launch.date_unix}`,
+  mission: {
+    name: launch.name,
+    missionPatchSmall: launch.links.patch.small,
+    missionPatchLarge: launch.links.patch.large,
+  },
+  rocket: {
+    id: launch.rocket,
+    name: launch.name,
+    type: 'rocket',
+  },
+});
+
 class LaunchAPI extends RESTDataSource {
   constructor() {
     super();
@@ -8,35 +24,19 @@ class LaunchAPI extends RESTDataSource {
 
   async getAllLaunches() {
     const response = await this.get('launches');
-    const isArray = Array.isArray(response);
-    return isArray ? response.map(this.launchReducer) : [];
+    if (!Array.isArray(response)) {
+      return [];
+    }
+    return response.map(launchReducer);
   }
 
   async getLaunchById({ launchId }) {
-    const response = await this.get('launches', { flight_number: launchId });
-    return this.launchReducer(response[0]);
+    const response = await this.get('launches', { id: launchId });
+    return launchReducer(response[0]);
   }
 
   getLaunchByIds({ launchIds }) {
     return Promise.all(launchIds.map((launchId) => this.getLaunchById({ launchId })));
-  }
-
-  static launchReducer(launch) {
-    return {
-      id: launch.id,
-      cursor: `${launch.launch_date_unix}`,
-      site: launch.launch_site && launch.launch_site.site_name,
-      mission: {
-        name: launch.mission_name,
-        missionPatchSmall: launch.links.mission_patch_small,
-        missionPatchLarge: launch.links.mission_patch,
-      },
-      rocket: {
-        id: launch.rocket.rocket_id,
-        name: launch.rocket.rocket_name,
-        type: launch.rocket.rocket_type,
-      },
-    };
   }
 }
 

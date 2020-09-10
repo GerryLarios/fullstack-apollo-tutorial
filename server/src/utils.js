@@ -31,16 +31,11 @@ module.exports.paginateResults = ({
 };
 
 module.exports.createStore = () => {
-  const operatorsAliases = {
-    $in: SQL.Op.in,
-  };
-
   const db = new SQL('database', 'username', 'password', {
     dialect: 'sqlite',
     storage: './store.sqlite',
-    operatorsAliases,
+    operatorsAliases: SQL.Op,
     logging: false,
-
   });
 
   const users = db.define('user', {
@@ -48,7 +43,6 @@ module.exports.createStore = () => {
       type: SQL.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-
     },
     createdAt: SQL.DATE,
     updatedAt: SQL.DATE,
@@ -62,7 +56,6 @@ module.exports.createStore = () => {
       type: SQL.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-
     },
     createdAt: SQL.DATE,
     updatedAt: SQL.DATE,

@@ -22,7 +22,7 @@ const typeDefs = gql`
 
   type Launch {
     id: ID!
-    site: String
+    details: String
     mission: Mission
     rocket: Rocket
     isBooked: Boolean!
